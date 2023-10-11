@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import striptags from 'striptags'
-import * as HTTPUtil from '@/infra/utils/http-request-util'
+import * as HTTPUtil from '../../infra/utils/http-request-util'
 
 interface CaptionTrack {
   vssId: string
@@ -20,6 +20,7 @@ export class SubtitleService {
     const { data } = await this.request.get<string>(`https://youtube.com/watch?v=${videoID}`)
 
     const match = /"captionTracks":(.*?)]/.exec(data)
+
     if (!match || match.length < 2) {
       throw new Error('Could not find captionTracks in the response')
     }
