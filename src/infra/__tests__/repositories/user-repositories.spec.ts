@@ -1,11 +1,6 @@
+import { AddAccountRepository } from '../../repositories/user/user-repository'
 import { connect, disconnect } from '../../helper/in-db-memory-server'
-import { User } from '@/infra/db/schemas/user-schema-database'
-
-// class AddUserRepository {
-//   async add () {
-
-//   }
-// }
+import { User } from '../../db/schemas/user-schema-database'
 
 describe('addUserRepository', () => {
   beforeAll(async () => {
@@ -21,16 +16,12 @@ describe('addUserRepository', () => {
   })
 
   test('should create am user correctly', async () => {
-    const workspace = new AddWorkSpaceRepository()
-    const result = await workspace.Add({
-      description: 'any',
-      priority: 'any',
-      owner: 'any'
+    const userRepository = new AddAccountRepository()
+    const result = await userRepository.add({
+      name: 'any_name',
+      email: 'any_mail.com',
+      password: 'any_password'
     })
-
     expect(result).toBeDefined()
-    expect(result.description).toBe('any')
-    expect(result.priority).toBe('any')
-    expect(result.owner).toBe('any')
   })
 })
