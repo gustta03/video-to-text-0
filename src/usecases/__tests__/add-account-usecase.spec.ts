@@ -1,14 +1,7 @@
-import { AddAccont, AddAccount } from '../protocols/add-account-protocol'
-import { addAccountRepository } from '../protocols/db/db-add-account-repository'
+import { AddAccountUseCase } from '../add-account'
+
 type sutType = {
   addAccountUseCase: any
-}
-
-export class AddAccountUseCase implements AddAccount {
-  constructor (private readonly addAccountRepository: addAccountRepository) {}
-  async load (params: AddAccont.Params): Promise<string> {
-    return await this.addAccountRepository.add(params)
-  }
 }
 
 class AddAccountRepositoryStub {
@@ -29,7 +22,29 @@ const makeSut = (): sutType => {
 describe('AddAccountUseCase', () => {
   test('should return a string token fake', async () => {
     const { addAccountUseCase } = makeSut()
-    const request = await addAccountUseCase.load({ name: 'any_name', email: 'any_mail', password: 'any_password' })
+    const request = await addAccountUseCase.load({
+      name: 'any_name',
+      email: 'any_mail',
+      password: 'any_password'
+    })
     expect(request).toBe('any-token')
+  })
+  test('should throw an error when AddAccountRepository fail', async () => {
+    const mockAddAccountError = {
+      add: jest.fn().mockImplementation(() => {
+        throw new Error('error saving user')
+      })
+    }
+    const addAccountUseCase = new AddAccountUseCase(mockAddAccountError)
+    try {
+      await addAccountUseCase.load({
+        name: 'any-name',
+        email: 'invalid-mail',
+        password: 'any-password'
+      })
+    } catch (error) {
+      expect(error.message).toBe('error saving user')
+    }
+    expect(mockAddAccountError.add).toHaveBeenCalledTimes(1)
   })
 })
