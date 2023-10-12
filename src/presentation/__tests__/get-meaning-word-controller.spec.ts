@@ -22,7 +22,7 @@ const makeSut = (): sutType => {
 describe('GetMeaningController', () => {
   test('should return an string response from usecase', async () => {
     const { getMeaningFromGptController } = makeSut()
-    const request = await getMeaningFromGptController.handle({ body: { word: 'any_word' } })
+    const request = await getMeaningFromGptController.handle({ word: 'any_word' })
     expect(request.statusCode).toBe(200)
     expect(request.body).toBe('any-gpt-response')
   })
@@ -36,7 +36,7 @@ describe('GetMeaningController', () => {
     const getMeaningFromGptController = new GetMeaningFromGptController(mockImplementationUseCase)
 
     try {
-      await getMeaningFromGptController.handle({ body: { word: 'any_word' } })
+      await getMeaningFromGptController.handle({ word: 'any_word' })
     } catch (error) {
       expect(error.message).toBe('Internal Server Error')
     }
