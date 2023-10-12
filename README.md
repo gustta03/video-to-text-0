@@ -80,3 +80,7 @@ buscando o significado da palavra whatever
 }
 
 ```
+
+## Observações:
+
+Projeto ainda em desenvolvimento, ainda há funcionalidades a ser implementada porem a base concluída, podendo ser usada pra consumir em um frontend
