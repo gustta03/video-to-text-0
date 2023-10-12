@@ -3,35 +3,32 @@ import { AddAccount } from '@/usecases/protocols/add-account-protocol'
 import { Controller } from '../protocols/controller'
 import { HttpBodyResponse } from '../protocols/http'
 import { HttpResponse } from '../helper/httpResponse'
-import { MissingParamError } from '../../utils/errors/missing-param-error'
+import { MissingParamError } from '@/utils/errors/missing-param-error'
 
 export class AddAccountController implements Controller {
   constructor (private readonly addAccountUseCase: AddAccount) {}
 
-  async handle (
-    request: AddAccountController.Request
-  ): Promise<HttpBodyResponse> {
+  async handle (request: AddAccountControllerParam.Request): Promise<HttpBodyResponse> {
     try {
-      const { name, email, password } = request
+      const { name, email, password } = request.body
       if (!name || !email || !password) {
-        return HttpResponse.badRequest(new MissingParamError('missing params'))
+        return HttpResponse.badRequest(new MissingParamError('Dados incompletos'))
       }
-      const accountResult = await this.addAccountUseCase.add({
-        name,
-        email,
-        password
-      })
-      return HttpResponse.created(accountResult)
+      const accountResult = await this.addAccountUseCase.add({ ...request.body })
+      return HttpResponse.ok(accountResult)
     } catch (error) {
+      console.log(error)
       return HttpResponse.InteanlError()
     }
   }
 }
 
-export namespace AddAccountController {
+export namespace AddAccountControllerParam {
   export type Request = {
-    name: string
-    email: string
-    password: string
+    body: {
+      name: string
+      email: string
+      password: string
+    }
   }
 }

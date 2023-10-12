@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { connect, disconnect } from '../../helper/in-db-memory-server'
+import { connect, disconnect } from '../../db/helper/in-db-memory-server'
 
 describe('Mongo Helper', () => {
   let stopServer: any

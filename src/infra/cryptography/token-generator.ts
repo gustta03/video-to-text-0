@@ -1,7 +1,8 @@
 import JWT from 'jsonwebtoken'
 import { MissingParamError } from '../../utils/errors/missing-param-error'
+import { Decrypter, Encrypter } from '@/usecases/protocols/cryptography/encripter-protocol'
 
-export class TokenGenerator {
+export class TokenGenerator implements Encrypter, Decrypter {
   constructor (private readonly secret: string) {
     this.secret = secret
   }

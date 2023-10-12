@@ -1,5 +1,5 @@
 import { AddAccountRepository } from '../../repositories/user/user-repository'
-import { connect, disconnect } from '../../helper/in-db-memory-server'
+import { connect, disconnect } from '../../db/helper/in-db-memory-server'
 import { User } from '../../db/schemas/user-schema-database'
 
 describe('addUserRepository', () => {

@@ -1,9 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { AddAccount } from '@/usecases/protocols/add-account-protocol'
-import { Controller } from '../protocols/controller'
-import { HttpBodyResponse } from '../protocols/http'
-import { HttpResponse } from '../helper/httpResponse'
-import { MissingParamError } from '../../utils/errors/missing-param-error'
+import { AddAccountController } from '../controllers/add-account-controller'
 
 type sutType = {
   addAccountController: AddAccountController
@@ -13,14 +9,6 @@ class AddAccountUseCaseStub {
   accessToken = 'any_token'
   async add (): Promise<any> {
     return this.accessToken
-  }
-}
-
-export namespace AddAccountController {
-  export type Request = {
-    name: string
-    email: string
-    password: string
   }
 }
 

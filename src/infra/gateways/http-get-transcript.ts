@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/prefer-optional-chain */
 import striptags from 'striptags'
-import * as HTTPUtil from '../../infra/utils/http-request-util'
+import * as HTTPUtil from '../util/http-request-util'
 
 interface CaptionTrack {
   vssId: string

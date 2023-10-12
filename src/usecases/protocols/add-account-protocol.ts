@@ -5,5 +5,5 @@ export interface AddAccount {
 
 export namespace AddAccont {
   export type Params = { name: string, email: string, password: string }
-  export type Response = Boolean
+  export type Response = string
 }
