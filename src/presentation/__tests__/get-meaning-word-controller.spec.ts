@@ -1,26 +1,13 @@
 import { WordMeaningGpt } from '@/usecases/protocols/get-meaning-protocol'
-import { HttpResponse } from '../helper/httpResponse'
+import { GetMeaningFromGptController } from '../controllers/get-meaning-word-controller'
 
 type sutType = {
   getMeaningFromGptController: GetMeaningFromGptController
 }
 
 class GetMeaningFromGptUseCaseStub implements WordMeaningGpt {
-  GPTResponse = 'any-gpt-response'
   async load (params: string): Promise<string> {
-    return this.GPTResponse
-  }
-}
-
-export class GetMeaningFromGptController {
-  constructor (private readonly getMeaningWordUseCase: any) {}
-  async handle (httpRequest: any): Promise<any> {
-    try {
-      const meaningWord = await this.getMeaningWordUseCase.load(httpRequest.body)
-      return HttpResponse.ok(meaningWord)
-    } catch (error) {
-      HttpResponse.InteanlError()
-    }
+    return 'any-gpt-response'
   }
 }
 
@@ -35,7 +22,7 @@ const makeSut = (): sutType => {
 describe('GetMeaningController', () => {
   test('should return an string response from usecase', async () => {
     const { getMeaningFromGptController } = makeSut()
-    const request = await getMeaningFromGptController.handle({ word: 'any_word' })
+    const request = await getMeaningFromGptController.handle({ body: { word: 'any_word' } })
     expect(request.statusCode).toBe(200)
     expect(request.body).toBe('any-gpt-response')
   })
@@ -49,7 +36,7 @@ describe('GetMeaningController', () => {
     const getMeaningFromGptController = new GetMeaningFromGptController(mockImplementationUseCase)
 
     try {
-      await getMeaningFromGptController.handle({ word: 'any_word' })
+      await getMeaningFromGptController.handle({ body: { word: 'any_word' } })
     } catch (error) {
       expect(error.message).toBe('Internal Server Error')
     }
