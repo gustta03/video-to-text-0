@@ -15,9 +15,68 @@ Este é um projeto open-source desenvolvido em Node.js e TypeScript, projetado p
 ## Lista de Tarefas (To-Do)
 
 - [x] Implementar a funcionalidade de transcrição de vídeos do YouTube.
-- [x] Integração do GPT para traduzir transcrições para o inglês.
 - [x] Desenvolver um dicionário interativo com GPT para fornecer significados e exemplos de uso de palavras.
+- [x] Integração do GPT para traduzir transcrições para o inglês.
 - [ ] Suporte a Outras Fontes de Vídeo: Estender a API para suportar serviços de vídeo além do YouTube, ampliando assim as possibilidades de aprendizado.
 
 
 Este projeto tem como objetivo promover a educação e o aprendizado de inglês de forma acessível e interativa, tirando proveito das vastas fontes de conteúdo disponíveis no YouTube. É uma iniciativa colaborativa que convida a comunidade de desenvolvedores a contribuir para seu crescimento e aprimoramento contínuo.
+
+# Exemplos de uso
+
+## exemplo 1 - Obter transcrição de um vídeo
+
+- Endpoint: /transcription/video/:id
+- Método: GET
+
+Resposta de Exemplo:
+
+```json
+[
+    {
+        "title": "Rodrigo Santoro on Heleno and His Heartthrob Status",
+        "subtitles": {
+            "en": [
+                {
+                    "start": "0.999",
+                    "dur": "9.071",
+                    "text": "what is a hard throw oh let's look at"
+                },
+                {
+                    "start": "4.339",
+                    "dur": "7.891",
+                    "text": "Wiktionary what does that mean I like to"
+                },
+                {
+                    "start": "10.07",
+                    "dur": "5.55",
+                    "text": "jump in the ocean the very first day of"
+                },
+                {
+                    "start": "12.23",
+                    "dur": "6.27",
+                    "text": "the year just wash it off everything and"
+                },
+                // ... Outras entradas de transcrição ...
+            ]
+        }
+    }
+]
+```
+
+## Exemplo 2 - Obtendo significado de uma palavra
+
+- Endpoint: /api/meaning/word/:word
+- Método: GET
+
+Resposta de exemplo: 
+
+buscando o significado da palavra whatever
+
+```json
+{
+  statusCode: 200,
+  body: 'A palavra "whatever" em inglês pode ser descrita resumidamente como uma expressão usada para indicar indiferença, desinteresse ou para deixar uma decisão ou escolha em aberto.'
+}
+
+```
