@@ -1,9 +1,32 @@
-import { AddAccont, AddAccount } from '../usecases/protocols/add-account-protocol'
-import { addAccountRepository } from '../usecases/protocols/db/db-add-account-repository'
+import {
+  AddAccont,
+  AddAccount
+} from '../usecases/protocols/add-account-protocol'
+import {
+  GenerateToken,
+  addAccountRepository,
+  hashAccountPassoword
+} from './protocols/db/db-add-account-protocols'
+import { EmailValidadtor } from './protocols/email-validator-protocol'
 
 export class AddAccountUseCase implements AddAccount {
-  constructor (private readonly addAccountRepository: addAccountRepository) {}
-  async load (params: AddAccont.Params): Promise<string> {
-    return await this.addAccountRepository.add(params)
+  constructor (
+    private readonly addAccountRepository: addAccountRepository,
+    private readonly emailValidadtor: EmailValidadtor,
+    private readonly hashPassword: hashAccountPassoword,
+    private readonly generateToken: GenerateToken
+  ) {}
+
+  async add (params: AddAccont.Params): Promise<AddAccont.Response> {
+    if (!this.emailValidadtor.isValid(params.email)) {
+      throw new Error('Email invalid provided')
+    }
+    const hashedPassword = await this.hashPassword.hash(params.password)
+    const user = await this.addAccountRepository.add({
+      name: params.name,
+      email: params.email,
+      password: hashedPassword
+    })
+    return await this.generateToken.encrypt(user)
   }
 }
