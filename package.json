@@ -39,6 +39,7 @@
     "mongodb-memory-server": "^9.0.0",
     "mongoose": "^7.6.1",
     "npm": "^10.2.0",
+    "openai": "^4.12.1",
     "striptags": "^3.2.0"
   },
   "_moduleAliases": {
