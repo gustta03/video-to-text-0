@@ -1,7 +1,7 @@
-import { EmailValidadtor } from '@/usecases/protocols/email-validator-protocol'
+import { EmailValidator } from '@/usecases/protocols/email-validator-protocol'
 import { MissingParamError } from './errors/missing-param-error'
 
-export class EmailValidator implements EmailValidadtor {
+export class Validator implements EmailValidator {
   isValid (email: string): boolean {
     if (!email) {
       throw new MissingParamError('email')
