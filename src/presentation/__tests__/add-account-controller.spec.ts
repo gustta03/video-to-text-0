@@ -16,29 +16,6 @@ class AddAccountUseCaseStub {
   }
 }
 
-class AddAccountController implements Controller {
-  constructor (private readonly addAccountUseCase: AddAccount) {}
-
-  async handle (
-    request: AddAccountController.Request
-  ): Promise<HttpBodyResponse> {
-    try {
-      const { name, email, password } = request
-      if (!name || !email || !password) {
-        return HttpResponse.badRequest(new MissingParamError('missing params'))
-      }
-      const accountResult = await this.addAccountUseCase.add({
-        name,
-        email,
-        password
-      })
-      return HttpResponse.created(accountResult)
-    } catch (error) {
-      return HttpResponse.InteanlError()
-    }
-  }
-}
-
 export namespace AddAccountController {
   export type Request = {
     name: string
