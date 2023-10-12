@@ -1,8 +1,14 @@
-import { MeaningWord } from '../../gateways/http-get-meaning-word-gpt' // Replace with the actual module path
-import { OpenAIMock } from '../mock/open-ia-mock' // Replace with the path to your OpenAI mock
+import { MeaningWord } from '../../gateways/http-get-meaning-word-gpt'
 
 describe('MeaningWord', () => {
   let meaningWord
+  const OpenAIMock = {
+    chat: {
+      completions: {
+        create: jest.fn()
+      }
+    }
+  }
 
   beforeAll(() => {
     meaningWord = new MeaningWord('mock-api-key')
