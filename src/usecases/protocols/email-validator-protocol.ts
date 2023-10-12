@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-export interface EmailValidadtor {
+export interface EmailValidator {
   isValid: (email: AddAccont.Param) => AddAccont.Response
 }
 

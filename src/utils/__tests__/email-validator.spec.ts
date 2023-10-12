@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { EmailValidator } from '../email-validator'
+import { Validator } from '../email-validator'
 import { MissingParamError } from '../errors/missing-param-error'
 
 const makeSut = () => {
-  return new EmailValidator()
+  return new Validator()
 }
 
 describe('Email validator', () => {

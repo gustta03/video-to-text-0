@@ -7,12 +7,12 @@ import {
   addAccountRepository,
   hashAccountPassoword
 } from './protocols/db/db-add-account-protocols'
-import { EmailValidadtor } from './protocols/email-validator-protocol'
+import { EmailValidator } from './protocols/email-validator-protocol'
 
 export class AddAccountUseCase implements AddAccount {
   constructor (
     private readonly addAccountRepository: addAccountRepository,
-    private readonly emailValidadtor: EmailValidadtor,
+    private readonly emailValidadtor: EmailValidator,
     private readonly hashPassword: hashAccountPassoword,
     private readonly generateToken: GenerateToken
   ) {}
