@@ -6,9 +6,8 @@ type sutType = {
 }
 
 class AddAccountUseCaseStub {
-  accessToken = 'any_token'
-  async add (): Promise<any> {
-    return this.accessToken
+  async add (): Promise<string> {
+    return 'any_token'
   }
 }
 
@@ -24,25 +23,29 @@ describe('AddAccountController', () => {
   test('should create user correctly', async () => {
     const { addAccountController } = makeSut()
     const request = await addAccountController.handle({
-      name: 'any_name',
-      email: 'any_email.com',
-      password: 'any_password'
+      body: {
+        name: 'any_name',
+        email: 'any_email.com',
+        password: 'any_password'
+      }
     })
 
-    expect(request.statusCode).toBe(201)
+    expect(request.statusCode).toBe(200)
     expect(request.body).toBe('any_token')
   })
   test('should throw missiParam error if params are no provided in request', async () => {
     const { addAccountController } = makeSut()
     const request = await addAccountController.handle({
-      name: 'any_name',
-      email: 'any_email.com',
-      // no password
-      password: ''
+      body: {
+        name: 'any_name',
+        email: 'any_email.com',
+        // no password
+        password: ''
+      }
     })
 
     expect(request.statusCode).toBe(400)
-    expect(request.body).toBe('Missing param: missing params')
+    expect(request.body).toBe('Missing param: Dados incompletos')
   })
   test('should throw InternalError if error occurs', async () => {
     const mockImplementationUseCase = {
@@ -55,9 +58,11 @@ describe('AddAccountController', () => {
 
     try {
       await addAccountController.handle({
-        name: '',
-        email: '',
-        password: ''
+        body: {
+          name: '',
+          email: '',
+          password: ''
+        }
       })
     } catch (error) {
       expect(error.message).toBe('Internal Server Error')
