@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { AddAccount } from '@/usecases/protocols/add-account-protocol'
+import { AddAccount } from '../../usecases/protocols/add-account-protocol'
 import { Controller } from '../protocols/controller'
 import { HttpBodyResponse } from '../protocols/http'
 import { HttpResponse } from '../helper/httpResponse'
-import { MissingParamError } from '@/utils/errors/missing-param-error'
+import { MissingParamError } from '../../utils/errors/missing-param-error'
 
 export class AddAccountController implements Controller {
   constructor (private readonly addAccountUseCase: AddAccount) {}
