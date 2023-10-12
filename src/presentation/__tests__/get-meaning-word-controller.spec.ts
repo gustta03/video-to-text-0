@@ -39,4 +39,19 @@ describe('GetMeaningController', () => {
     expect(request.statusCode).toBe(200)
     expect(request.body).toBe('any-gpt-response')
   })
+
+  test('should return an string response from usecase', async () => {
+    const mockImplementationUseCase = {
+      load: jest.fn().mockImplementation(() => {
+        throw new Error('Internal Server Error')
+      })
+    }
+    const getMeaningFromGptController = new GetMeaningFromGptController(mockImplementationUseCase)
+
+    try {
+      await getMeaningFromGptController.handle({ word: 'any_word' })
+    } catch (error) {
+      expect(error.message).toBe('Internal Server Error')
+    }
+  })
 })
