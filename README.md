@@ -20,8 +20,7 @@ Este é um projeto open-source desenvolvido em Node.js e TypeScript, projetado p
 - [ ] Suporte a Outras Fontes de Vídeo: Estender a API para suportar serviços de vídeo além do YouTube, ampliando assim as possibilidades de aprendizado.
 
 
-Este projeto tem como objetivo promover a educação e o aprendizado de inglês de forma acessível e interativa, tirando proveito das vastas fontes de conteúdo disponíveis no YouTube. É uma iniciativa colaborativa que convida a comunidade de desenvolvedores a contribuir para seu crescimento e aprimoramento contínuo.
-
+Este projeto tem como objetivo promover a educação e o aprendizado de inglês de forma acessível e interativa, tirando proveito das vastas fontes de conteúdo disponíveis no YouTube.
 # Exemplos de uso
 
 ## exemplo 1 - Obter transcrição de um vídeo
