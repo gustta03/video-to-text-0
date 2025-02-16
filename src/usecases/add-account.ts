@@ -21,11 +21,10 @@ export class AddAccountUseCase implements AddAccount {
     if (!this.emailValidadtor.isValid(params.email)) {
       throw new Error('Email invalid provided')
     }
-    const hashedPassword = await this.hashPassword.hash(params.password)
     const user = await this.addAccountRepository.add({
       name: params.name,
       email: params.email,
-      password: hashedPassword
+      whatsapp: params.whatsapp
     })
     return await this.generateToken.encrypt(user)
   }

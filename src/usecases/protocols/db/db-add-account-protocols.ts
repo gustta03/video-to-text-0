@@ -15,7 +15,7 @@ export namespace Account {
   export type Params = {
     name: string
     email: string
-    password: string
+    whatsapp: string
   }
   export type Response = string
 }

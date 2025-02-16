@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-namespace */
-import { AddAccountController } from '../controllers/add-account-controller'
+import { AddAccountController } from '../controllers/account/add-account-controller'
 
 type sutType = {
   addAccountController: AddAccountController
