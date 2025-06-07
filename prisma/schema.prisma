@@ -1,0 +1,112 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model customers {
+  id          String     @id @default(uuid())
+  client_name String
+  active      Boolean
+  services    services[]
+}
+
+model services {
+  id                   String   @id @default(uuid())
+  created_at           DateTime @default(now())
+  customer_id          String
+  technician           String
+  project              String
+  connectors_used      String
+  ont_model            String
+  signal_at_oto        Float?
+  signal_at_residence  Float?
+  drop_length          String
+  connector_identified Boolean
+  service_id           String?
+  city                 String
+  state                String
+  description          String
+
+  customer customers @relation(fields: [customer_id], references: [id])
+}
+
+model users {
+  id         String   @id @default(uuid())
+  created_at DateTime @default(now())
+  name       String
+  active     Boolean
+  updated_at DateTime
+  last_login DateTime
+}
+
+model opes {
+  id                       String   @id @default(uuid())
+  created_at               DateTime @default(now())
+  name                     String
+  manufacturer             String
+  authorization_command    String
+  provisioning_command     String
+  deprovisioning_command   String
+  disauthorization_command String
+}
+
+model cto_ports {
+  id          String @id @default(uuid())
+  cto_id      String
+  port_number Int
+
+  cto ctos @relation(fields: [cto_id], references: [id])
+}
+
+model ctos {
+  id            String  @id @default(uuid())
+  cto_name      String
+  project_id    String
+  splitter_type String
+  total_ports   Int
+  active        Boolean
+
+  ports   cto_ports[]
+  project projects    @relation(fields: [project_id], references: [id])
+}
+
+model olts {
+  id                String   @id @default(uuid())
+  created_at        DateTime @default(now())
+  name              String
+  manufacturer      String
+  ip_address        String
+  port              Int
+  user              String
+  password          String
+  model             String
+  active            Boolean
+  connection_status String
+  updated_at        DateTime
+  project_id        String
+
+  project projects @relation(fields: [project_id], references: [id])
+}
+
+model projects {
+  id          String   @id @default(uuid())
+  created_at  DateTime @default(now())
+  name        String
+  description String
+  active      Boolean
+  updated_at  DateTime
+
+  olts olts[]
+  ctos ctos[]
+}

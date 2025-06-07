@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import pkg from 'mongoose'
-const { connect: mongooseConnect, connection } = pkg
+
+import { PrismaClient } from "@prisma/client";
+
+const db = new PrismaClient();
 
 export const connect = async (uri: string): Promise<void> => {
-  await mongooseConnect(uri)
+  await db.$connect()
 }
 
-export const close = () => connection.close()
+export const close = () => db.$disconnect()
